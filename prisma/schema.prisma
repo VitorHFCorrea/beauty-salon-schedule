@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Salon {
+  id          String         @id @default(uuid())
+  name        String
+  address     String
+  phones      String
+  description String
+  imageUrl    String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  services    SalonService[] //Salon possui vários serviços [indicado pelo array]
+}
+
+model SalonService {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  imageUrl    String
+  price       Decimal   @db.Decimal(10, 2)
+  salonId     String
+  salon       Salon     @relation(fields: [salonId], references: [id]) // SalonService{salonId} = Salon{id}
+  bookings    Booking[]
+}
+
+model Booking {
+  id        String       @id @default(uuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id]) // Booking{userId} = User{id}
+  serviceId String
+  service   SalonService @relation(fields: [serviceId], references: [id])
+  date      DateTime // data agendada
+  createdAt DateTime     @default(now()) // momento da criação do agendamento
+  updatedAt DateTime     @updatedAt // momento da atualização do agendamento
+}
