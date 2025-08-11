@@ -6,8 +6,12 @@ import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { Badge } from "./_components/ui/badge"
 import { quickSearchOptions } from "./_constants/search"
+import { db } from "./_lib/prisma"
+import SalonItem from "./_components/salon-item"
 
-const Home = () => {
+const Home = async () => {
+  const salons = await db.salon.findMany({})
+
   return (
     <div>
       <Header />
@@ -62,6 +66,17 @@ const Home = () => {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="p-5 pt-0">
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Nossa Unidade
+        </h2>
+        <div className="flex gap-4 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          {salons.map((salon) => (
+            <SalonItem key={salon.id} salon={salon} />
+          ))}
+        </div>
       </div>
 
       <footer>
