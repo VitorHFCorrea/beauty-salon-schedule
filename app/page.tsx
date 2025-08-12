@@ -16,7 +16,7 @@ const Home = async () => {
     <div>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Karina!</h2>
+        <h2 className="text-xl font-bold">Olá, {data.user.name}!</h2>
         <p>Segunda-feira, 05 de agosto</p>
 
         <div className="mt-6 flex items-center gap-2">
