@@ -171,7 +171,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                     locale={ptBR}
                     selected={selectedDay}
                     onSelect={handleDateSelect}
-                    disabled={(date: Date) => date < new Date()}
+                    disabled={{before: new Date()}}
                     // styles={{
                     //   months:
                     //     "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
