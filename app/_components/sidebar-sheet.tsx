@@ -1,10 +1,18 @@
-import { CalendarIcon, HomeIcon, LogOutIcon } from "lucide-react"
+import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
 import { Button } from "./ui/button"
-import { Avatar, AvatarImage } from "./ui/avatar"
+// import { Avatar, AvatarImage } from "./ui/avatar"
 import Link from "next/link"
 import { quickSearchOptions } from "../_constants/search"
 import Image from "next/image"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog"
 
 const SidebarSheet = () => {
   return (
@@ -13,19 +21,47 @@ const SidebarSheet = () => {
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
 
-      <div className="flex gap-3 border-b border-solid py-5">
-        <Avatar className="h-14 w-14">
+      <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
+        <h2 className="font-bold">Olá, faça seu login!</h2>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="icon">
+              <LogInIcon className="!h-5 !w-5" />
+            </Button>
+          </DialogTrigger>
+
+          <DialogContent className="w-[90%] rounded-2xl">
+            <DialogHeader>
+              <DialogTitle>Faça login na Beauty</DialogTitle>
+              <DialogDescription>
+                Conect-se usando sua conta do Google
+              </DialogDescription>
+            </DialogHeader>
+
+            <Button variant="outline" className="rounded-xl font-bold">
+              <Image
+                alt="Fazer login com o Google"
+                src="/google.svg"
+                width={18}
+                height={18}
+              ></Image>
+              Google
+            </Button>
+          </DialogContent>
+        </Dialog>
+        {/* <Avatar className="h-14 w-14">
           <AvatarImage
             alt="avatar"
             src="profile.svg"
             className="h-full w-full object-cover"
           />
-        </Avatar>
+        </Avatar> 
 
         <div className="self-center">
           <p className="font-bold">Karina Fuji</p>
           <p className="text-xs">kahfujiteste@gmail.com</p>
         </div>
+        */}
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
