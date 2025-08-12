@@ -1,6 +1,6 @@
 "use client"
 
-import { SalonService } from "@/app/generated/prisma/client"
+import { Booking, SalonService } from "@/app/generated/prisma/client"
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
@@ -15,11 +15,12 @@ import {
 } from "./ui/sheet"
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { format, set } from "date-fns"
 import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
+import { getBookings } from "../_actions/get-bookings"
 
 interface ServiceItemProps {
   service: SalonService
@@ -55,6 +56,20 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
+
+  const [dayBookins, setDayBookings] = useState<Booking[]>([])
+
+  useEffect(() => {
+    const fetch = async () => {
+      if (!selectedDay) return
+      const bookings = await getBookings({
+        date: selectedDay,
+        serviceId: service.id,
+      })
+      setDayBookings(bookings)
+    }
+    fetch()
+  }, [selectedDay, service.id])
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDay(date)
@@ -126,29 +141,30 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                     locale={ptBR}
                     selected={selectedDay}
                     onSelect={handleDateSelect}
-                    styles={{
-                      head_cell: {
-                        width: "100%",
-                        textTransform: "capitalize",
-                      },
-                      cell: {
-                        width: "100%",
-                      },
-                      button: {
-                        width: "100%",
-                      },
-                      nav_button_previous: {
-                        width: "32px",
-                        height: "32px",
-                      },
-                      nav_button_next: {
-                        width: "32px",
-                        height: "32px",
-                      },
-                      caption: {
-                        textTransform: "capitalize",
-                      },
-                    }}
+                    // styles={{
+                    //   months:
+                    //     "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                    //   month: "space-y-4",
+                    //   caption:
+                    //     "flex justify-center pt-1 relative items-center capitalize",
+                    //   caption_label: "text-sm font-medium",
+                    //   nav: "space-x-1 flex items-center",
+                    //   nav_button:
+                    //     "h-8 w-8 bg-transparent p-0 opacity-50 hover:opacity-100",
+                    //   nav_button_previous: "absolute left-1",
+                    //   nav_button_next: "absolute right-1",
+                    //   table: "w-full border-collapse space-y-1",
+                    //   head_row: "flex",
+                    //   head_cell:
+                    //     "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem] capitalize",
+                    //   row: "flex w-full mt-2",
+                    //   cell: "h-9 w-9 text-center text-sm p-0 relative",
+                    //   day: "h-9 w-9 p-0 font-normal",
+                    //   day_selected:
+                    //     "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                    //   day_disabled: "text-muted-foreground opacity-50",
+                    //   day_outside: "text-muted-foreground opacity-50",
+                    // }}
                   />
                 </div>
 
@@ -168,7 +184,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                 )}
 
                 {selectedTime && selectedDay && (
-                  <div className="p-5">
+                  <div className="pb-0 p-5">
                     <Card>
                       <CardContent className="space-y-3 p-3">
                         <div className="flex items-center justify-between">
