@@ -1,11 +1,11 @@
-import { SearchIcon } from "lucide-react"
+// import { SearchIcon } from "lucide-react"
 import Header from "./_components/header"
-import { Button } from "./_components/ui/button"
-import { Input } from "./_components/ui/input"
+// import { Button } from "./_components/ui/button"
+// import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { Badge } from "./_components/ui/badge"
-import { quickSearchOptions } from "./_constants/search"
+// import { quickSearchOptions } from "./_constants/search"
 import { db } from "./_lib/prisma"
 import SalonItem from "./_components/salon-item"
 
@@ -19,14 +19,14 @@ const Home = async () => {
         <h2 className="text-xl font-bold">Olá, Karina!</h2>
         <p>Segunda-feira, 05 de agosto</p>
 
-        <div className="mt-6 flex items-center gap-2">
+        {/* <div className="mt-6 flex items-center gap-2">
           <Input placeholder="Faça sua busca..." />
           <Button>
             <SearchIcon size="icon" />
           </Button>
-        </div>
+        </div> */}
 
-        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+        {/* <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option) => (
             <Button className="gap-2" variant="secondary" key={option.title}>
               <Image
@@ -38,7 +38,7 @@ const Home = async () => {
               {option.title}
             </Button>
           ))}
-        </div>
+        </div> */}
 
         <div className="relative mt-6 h-[150px] w-full">
           <Image

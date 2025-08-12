@@ -5,7 +5,7 @@ import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
 import { Button } from "./ui/button"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import Link from "next/link"
-import { quickSearchOptions } from "../_constants/search"
+// import { quickSearchOptions } from "../_constants/search"
 import Image from "next/image"
 import {
   Dialog,
@@ -99,7 +99,7 @@ const SidebarSheet = () => {
         </Button>
       </div>
 
-      <div className="flex flex-col gap-2 border-b border-solid py-5">
+      {/* <div className="flex flex-col gap-2 border-b border-solid py-5">
         {quickSearchOptions.map((option) => (
           <Button
             key={option.title}
@@ -115,7 +115,7 @@ const SidebarSheet = () => {
             {option.title}
           </Button>
         ))}
-      </div>
+      </div> */}
 
       <div className="flex flex-col gap-2 py-5">
         <Button
