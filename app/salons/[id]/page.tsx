@@ -84,7 +84,7 @@ const SalonPage = async ({ params }: SalonPageProps) => {
         <h2 className="text-xs font-bold uppercase text-gray-400">Serviços</h2>
         <div className="space-y-3">
           {salon.services.map((service) => (
-            <ServiceItem key={service.name} service={service} />
+            <ServiceItem key={service.name} service={JSON.parse(JSON.stringify(service))} />
           ))}
         </div>
       </div>
