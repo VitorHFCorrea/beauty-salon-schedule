@@ -123,7 +123,6 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
       })
       await createBooking({
         serviceId: service.id,
-        userId: (data?.user as any).id,
         date: newDate,
       })
       handleBookingSheetOpenChange()
@@ -280,7 +279,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
           setSignInDialogIsOpen(open)
         }}
       >
-        <DialogContent className="w-[90%]">
+        <DialogContent className="w-[90%] rounded-2xl">
           <SignInDialog />
         </DialogContent>
       </Dialog>
