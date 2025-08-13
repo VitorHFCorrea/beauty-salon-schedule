@@ -11,6 +11,9 @@ import { authOptions } from "./_lib/auth"
 import BookingItem from "./_components/booking-item"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import type { DefaultSession } from "next-auth"
+
+type UserWithId = DefaultSession["user"] & { id: string }
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -20,7 +23,7 @@ const Home = async () => {
   const confirmedBookings = session?.user
     ? await db.booking.findMany({
         where: {
-          userId: (session.user as any).id,
+          userId: (session.user as UserWithId).id,
           date: {
             gte: new Date(),
           },
@@ -43,7 +46,8 @@ const Home = async () => {
       <Header />
       <div className="p-5">
         <h2 className="text-xl font-bold">
-          Olá, {session?.user ? session.user.name?.split(" ")[0] : "Bem-vindo!"}!
+          Olá, {session?.user ? session.user.name?.split(" ")[0] : "Bem-vindo!"}
+          !
         </h2>
         <p>
           <span className="capitalize">
@@ -85,14 +89,18 @@ const Home = async () => {
           />
         </div>
 
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Agendamentos
-        </h2>
-        <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {confirmedBookings.map((booking) => (
-            <BookingItem key={booking.id} booking={booking} />
-          ))}
-        </div>
+        {confirmedBookings.length > 0 && (
+          <>
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+              Agendamentos
+            </h2>
+            <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+              {confirmedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
+          </>
+        )}
 
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Nossa Unidade
