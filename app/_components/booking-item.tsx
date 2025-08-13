@@ -1,7 +1,7 @@
 "use client"
 
 import { format, isFuture } from "date-fns"
-import { Prisma } from "../generated/prisma"
+import { Prisma } from '@prisma/client';
 import { Badge } from "./ui/badge"
 import { Card, CardContent } from "./ui/card"
 import { ptBR } from "date-fns/locale"

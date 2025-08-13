@@ -1,6 +1,6 @@
 "use client"
 
-import { Booking, SalonService } from "@/app/generated/prisma/client"
+import { Booking, SalonService } from '@prisma/client';
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"

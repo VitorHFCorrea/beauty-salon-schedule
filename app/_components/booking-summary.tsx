@@ -1,6 +1,6 @@
 import { format } from "date-fns"
 import { Card, CardContent } from "./ui/card"
-import { SalonService } from "../generated/prisma"
+import { SalonService } from "@prisma/client"
 import { ptBR } from "date-fns/locale"
 
 interface BookingSummaryProps {

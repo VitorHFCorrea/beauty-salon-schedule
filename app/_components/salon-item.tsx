@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Salon } from "../generated/prisma"
+import { Salon } from "@prisma/client"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import Image from "next/image"
