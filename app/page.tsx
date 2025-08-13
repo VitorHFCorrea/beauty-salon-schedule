@@ -11,35 +11,14 @@ import { authOptions } from "./_lib/auth"
 import BookingItem from "./_components/booking-item"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import type { DefaultSession } from "next-auth"
-
-type UserWithId = DefaultSession["user"] & { id: string }
+import { getConfirmedBookings } from "./_actions/_data/get-confirmed-bookings"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
   const salons = await db.salon.findMany({})
   // const employees = await db.employee.findMany({})
 
-  const confirmedBookings = session?.user
-    ? await db.booking.findMany({
-        where: {
-          userId: (session.user as UserWithId).id,
-          date: {
-            gte: new Date(),
-          },
-        },
-        include: {
-          service: {
-            include: {
-              salon: true,
-            },
-          },
-        },
-        orderBy: {
-          date: "asc",
-        },
-      })
-    : []
+  const confirmedBookings = await getConfirmedBookings
 
   return (
     <div>

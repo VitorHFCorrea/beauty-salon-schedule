@@ -22,7 +22,7 @@ import { getBookings } from "../_actions/get-bookings"
 import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import BookingSummary from "./booking-summary"
-import { Router, useRouter } from "next/router"
+import { useRouter } from "next/router"
 
 interface ServiceItemProps {
   service: SalonService
