@@ -12,7 +12,7 @@ import SignInDialog from "./sign-in-dialog"
 
 const SidebarSheet = () => {
   const { data } = useSession()
-  const handleLogoutClick = () => signOut()
+  const handleLogoutClick = () => signOut({ redirect: true, callbackUrl: "/" })
 
   return (
     <SheetContent className="overflow-y-auto [&::-webkit-scrollbar]:hidden">
@@ -66,11 +66,17 @@ const SidebarSheet = () => {
           </Button>
         </SheetClose>
         <SheetClose asChild>
-          <Button className="justify-start gap-2 rounded-lg" variant="ghost" asChild>
-            <Link href="/bookings">
-              <CalendarIcon size={18} /> Agendamentos
-            </Link>
-          </Button>
+          {data?.user && (
+            <Button
+              className="justify-start gap-2 rounded-lg"
+              variant="ghost"
+              asChild
+            >
+              <Link href="/bookings">
+                <CalendarIcon size={18} /> Agendamentos
+              </Link>
+            </Button>
+          )}
         </SheetClose>
       </div>
 

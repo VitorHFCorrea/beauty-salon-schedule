@@ -22,15 +22,13 @@ import { getBookings } from "../_actions/get-bookings"
 import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import BookingSummary from "./booking-summary"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 interface ServiceItemProps {
   service: SalonService
 }
 
 const TIME_LIST = [
-  "05:00",
-  "05:30",
   "08:00",
   "08:30",
   "09:00",
@@ -148,7 +146,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
         action: {
           label: "Ver agendamentos",
           onClick: () => router.push("/bookings"),
-        }
+        },
       })
     } catch (error) {
       console.log(error)
