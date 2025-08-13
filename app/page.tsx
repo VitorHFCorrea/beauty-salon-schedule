@@ -9,6 +9,8 @@ import SalonItem from "./_components/salon-item"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
 import BookingItem from "./_components/booking-item"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -31,8 +33,8 @@ const Home = async () => {
           },
         },
         orderBy: {
-          date: "asc"
-        }
+          date: "asc",
+        },
       })
     : []
 
@@ -40,8 +42,18 @@ const Home = async () => {
     <div>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Karina!</h2>
-        <p>Segunda-feira, 05 de agosto</p>
+        <h2 className="text-xl font-bold">
+          Olá, {session?.user ? session.user.name?.split(" ")[0] : "Bem-vindo!"}!
+        </h2>
+        <p>
+          <span className="capitalize">
+            {format(new Date(), "EEEE, dd", { locale: ptBR })}
+          </span>
+          <span>&nbsp;de&nbsp;</span>
+          <span className="capitalize">
+            {format(new Date(), "MMMM", { locale: ptBR })}
+          </span>
+        </p>
 
         {/* <div className="mt-6 flex items-center gap-2">
           <Input placeholder="Faça sua busca..." />
