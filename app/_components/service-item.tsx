@@ -52,8 +52,9 @@ const TIME_LIST = [
 
 const getTimeList = (bookings: Booking[]) => {
   return TIME_LIST.filter((time) => {
+
     const hours = Number(time.split(":")[0])
-    const minutes = Number(time.split(":")[0])
+    const minutes = Number(time.split(":")[1])
 
     const hasBookingOnCurrentTime = bookings.some(
       (booking) =>
@@ -67,7 +68,7 @@ const getTimeList = (bookings: Booking[]) => {
     return true
   })
 }
-
+ 
 const ServiceItem = ({ service }: ServiceItemProps) => {
   const [signInDialogIsOpen, setSignInDialogIsOpen] = useState(false)
   const { data } = useSession()
@@ -117,6 +118,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
       if (!selectedDay || !selectedTime) return
       const hours = Number(selectedTime.split(":")[0])
       const minutes = Number(selectedTime.split(":")[1])
+
       const newDate = set(selectedDay, {
         minutes: minutes,
         hours: hours,
