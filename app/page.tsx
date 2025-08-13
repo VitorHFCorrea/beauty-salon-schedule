@@ -18,7 +18,7 @@ const Home = async () => {
   const salons = await db.salon.findMany({})
   // const employees = await db.employee.findMany({})
 
-  const confirmedBookings = await getConfirmedBookings
+  const confirmedBookings = await getConfirmedBookings()
 
   return (
     <div>
@@ -75,7 +75,10 @@ const Home = async () => {
             </h2>
             <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
               {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={JSON.parse(JSON.stringify(booking))} />
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))}
+                />
               ))}
             </div>
           </>
